@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomorrowland 2025 - 18-20 Julio</title>
+    <style>
+        :root {
+            --tomorrowland-primary: #ff6b6b;
+            --tomorrowland-secondary: #4ecdc4;
+            --mainstage-color: #1976d2;
+            --library-color: #d32f2f;
+            --freedom-color: #7b1fa2;
+            --crystal-color: #ff6f00;
+            --rave-cave-color: #4caf50;
+            --background-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            color: #1a1a1a;
+            margin: 0;
+        }
+        
+        .header p {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        .event-highlight {
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .highlight-header {
+            padding: 8px 12px;
+            background-color: #f5f5f5;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .highlight-title {
+            font-weight: 600;
+        }
+        
+        .highlight-now {
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+        
+        .highlight-next {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .highlight-countdown {
+            font-size: 11px;
+            color: #ff6b6b;
+            font-weight: 500;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+        
+        .no-events {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: #fff;
+            position: sticky;
+            top: 5.25rem;
+            z-index: 15;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 5px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .tab.active {
+            color: var(--tomorrowland-primary);
+            border-bottom-color: var(--tomorrowland-primary);
+        }
+        
+        .event-list {
+            padding: 10px 15px;
+        }
+        
+        .event-card {
+            display: flex;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .event-time {
+            width: 60px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 15px 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0,0,0,0.03);
+        }
+        
+        .event-time-range {
+            font-size: 10px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        
+        .event-content {
+            flex: 1;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .event-title {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .event-category {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            gap: 5px;
+        }
+        
+        .stage-badge {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .event-mainstage {
+            border-left: 4px solid var(--mainstage-color);
+        }
+        
+        .event-library {
+            border-left: 4px solid var(--library-color);
+        }
+        
+        .event-freedom {
+            border-left: 4px solid var(--freedom-color);
+        }
+        
+        .event-crystal {
+            border-left: 4px solid var(--crystal-color);
+        }
+        
+        .event-rave {
+            border-left: 4px solid var(--rave-cave-color);
+        }
+        
+        .date-header {
+            padding: 10px 15px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #666;
+            position: sticky;
+            top: 100px;
+            background-color: var(--background-color);
+            z-index: 10;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 30px 15px;
+            color: #666;
+        }
+        
+        .collaboration-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+        }
+        
+        .mega-set-badge {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        /* Para tablets y desktop */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .header {
+                border-radius: 10px 10px 0 0;
+                margin-top: 20px;
+            }
+            
+            .event-list {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 Tomorrowland 2025 - Mi Calendario Personal</h1>
+            <p>18-20 Julio • Artistas Favoritos</p>
+        </div>
+        
+        <div id="event-highlight-container" class="event-highlight-container">
+            <!-- Eventos destacados (actual y próximo) -->
+        </div>
+        
+        <div class="tabs" id="tabs">
+            <!-- Tabs se generarán dinámicamente -->
+        </div>
+        
+        <div id="content-container">
+            <!-- Contenido de días se generará dinámicamente -->
+        </div>
+    </div>
+    
+    <script>
+        // Datos del calendario de Tomorrowland
+        const tomorrowlandData = {
+            dias: [
+                {
+                    id: 'viernes',
+                    nombre: 'Viernes 18',
+                    eventos: [
+                        {
+                            titulo: 'Vini Vici',
+                            tiempo: '17:35',
+                            tiempoCompleto: '17:35 - 18:35',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        },
+                        {
+                            titulo: 'John Newman',
+                            tiempo: '19:00',
+                            tiempoCompleto: '19:00 - 20:00',
+                            escenario: 'THE GREAT LIBRARY',
+                            categoria: 'library'
+                        },
+                        {
+                            titulo: 'Axwell',
+                            tiempo: '22:50',
+                            tiempoCompleto: '22:50 - 23:50',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        },
+                        {
+                            titulo: 'Hardwell',
+                            tiempo: '23:00',
+                            tiempoCompleto: '23:00 - 00:00',
+                            escenario: 'THE GREAT LIBRARY',
+                            categoria: 'library'
+                        },
+                        {
+                            titulo: 'Martin Garrix',
+                            tiempo: '23:50',
+                            tiempoCompleto: '23:50 - 00:50',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        }
+                    ]
+                },
+                {
+                    id: 'sabado',
+                    nombre: 'Sábado 19',
+                    eventos: [
+                        {
+                            titulo: 'Los Bomberos',
+                            tiempo: '13:00',
+                            tiempoCompleto: '13:00 - 14:00',
+                            escenario: 'THE RAVE CAVE',
+                            categoria: 'rave'
+                        },
+                        {
+                            titulo: 'Symphony Of Unity',
+                            tiempo: '17:00',
+                            tiempoCompleto: '17:00 - 18:00',
+                            escenario: 'FREEDOM BY BUD',
+                            categoria: 'freedom'
+                        },
+                        {
+                            titulo: 'Nicky Romero',
+                            tiempo: '18:20',
+                            tiempoCompleto: '18:20 - 19:20',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        },
+                        {
+                            titulo: 'Alan Walker',
+                            tiempo: '20:25',
+                            tiempoCompleto: '20:25 - 21:25',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        },
+                        {
+                            titulo: 'Axwell b2b Sebastian Ingrosso b2b Steve Angello',
+                            tiempo: '21:30',
+                            tiempoCompleto: '21:30 - 00:30',
+                            escenario: 'CRYSTAL GARDEN',
+                            categoria: 'crystal',
+                            colaboracion: true,
+                            megaSet: true
+                        },
+                        {
+                            titulo: 'Lost Frequencies',
+                            tiempo: '21:30',
+                            tiempoCompleto: '21:30 - 22:45',
+                            escenario: 'THE GREAT LIBRARY',
+                            categoria: 'library',
+                            colaboracion: true
+                        },
+                        {
+                            titulo: 'Armin van Buuren',
+                            tiempo: '22:00',
+                            tiempoCompleto: '22:00 - 00:30',
+                            escenario: 'FREEDOM BY BUD',
+                            categoria: 'freedom',
+                            colaboracion: true
+                        },
+                        {
+                            titulo: 'Dimitri Vegas & Like Mike',
+                            tiempo: '22:30',
+                            tiempoCompleto: '22:30 - 23:45',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage',
+                            colaboracion: true
+                        },
+                        {
+                            titulo: 'Charlotte de Witte',
+                            tiempo: '23:45',
+                            tiempoCompleto: '23:45 - 00:45',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        }
+                    ]
+                },
+                {
+                    id: 'domingo',
+                    nombre: 'Domingo 20',
+                    eventos: [
+                        {
+                            titulo: 'Blasterjaxx',
+                            tiempo: '17:00',
+                            tiempoCompleto: '17:00 - 18:00',
+                            escenario: 'THE GREAT LIBRARY',
+                            categoria: 'library'
+                        },
+                        {
+                            titulo: 'Robin Schulz',
+                            tiempo: '19:00',
+                            tiempoCompleto: '19:00 - 20:00',
+                            escenario: 'THE GREAT LIBRARY',
+                            categoria: 'library'
+                        },
+                        {
+                            titulo: 'Dimitri Vegas b2b Steve Aoki',
+                            tiempo: '20:00',
+                            tiempoCompleto: '20:00 - 21:00',
+                            escenario: 'THE GREAT LIBRARY',
+                            categoria: 'library',
+                            colaboracion: true
+                        },
+                        {
+                            titulo: 'Lost Frequencies',
+                            tiempo: '20:40',
+                            tiempoCompleto: '20:40 - 21:40',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        },
+                        {
+                            titulo: 'David Guetta',
+                            tiempo: '22:50',
+                            tiempoCompleto: '22:50 - 23:50',
+                            escenario: 'MAINSTAGE',
+                            categoria: 'mainstage'
+                        }
+                    ]
+                }
+            ]
+        };
+        
+        // Función para generar el HTML para cada día
+        function generarContenidoDia(dia) {
+            const dayContent = document.createElement('div');
+            dayContent.classList.add('day-content');
+            dayContent.id = `${dia.id}-content`;
+            dayContent.classList.add('hidden');
+            
+            const eventList = document.createElement('div');
+            eventList.classList.add('event-list');
+            
+            // Ordenar eventos por tiempo
+            const eventosPorTiempo = [...dia.eventos].sort((a, b) => {
+                let timeA = a.tiempo.split(':').map(Number);
+                let timeB = b.tiempo.split(':').map(Number);
+                
+                if (timeA[0] === 0) timeA[0] = 24;
+                if (timeB[0] === 0) timeB[0] = 24;
+                
+                if (timeA[0] !== timeB[0]) return timeA[0] - timeB[0];
+                return timeA[1] - timeB[1];
+            });
+            
+            // Agrupar eventos por hora
+            const eventosPorHora = {};
+            
+            eventosPorTiempo.forEach(evento => {
+                const hora = evento.tiempo.split(':')[0];
+                if (!eventosPorHora[hora]) {
+                    eventosPorHora[hora] = [];
+                }
+                eventosPorHora[hora].push(evento);
+            });
+            
+            // Crear elementos para cada grupo de hora
+            const horasOrdenadas = Object.keys(eventosPorHora).sort((a, b) => {
+                const horaA = a === "00" || a === "0" ? 24 : parseInt(a);
+                const horaB = b === "00" || b === "0" ? 24 : parseInt(b);
+                return horaA - horaB;
+            });
+            
+            horasOrdenadas.forEach(hora => {
+                if (hora === '0' || hora === '00') {
+                    const dateHeader = document.createElement('div');
+                    dateHeader.classList.add('date-header');
+                    dateHeader.textContent = `Medianoche`;
+                    eventList.appendChild(dateHeader);
+                }
+                else if (eventosPorHora[hora].length > 1) {
+                    const dateHeader = document.createElement('div');
+                    dateHeader.classList.add('date-header');
+                    dateHeader.textContent = `${hora}:00`;
+                    eventList.appendChild(dateHeader);
+                }
+                
+                eventosPorHora[hora].forEach(evento => {
+                    const eventCard = document.createElement('div');
+                    eventCard.classList.add('event-card', `event-${evento.categoria}`);
+                    
+                    if (evento.colaboracion) {
+                        eventCard.classList.add('collaboration-card');
+                    }
+                    
+                    // Parte de la hora
+                    const eventTime = document.createElement('div');
+                    eventTime.classList.add('event-time');
+                    
+                    const mainTime = document.createElement('div');
+                    mainTime.textContent = evento.tiempo;
+                    
+                    if (evento.tiempoCompleto && evento.tiempoCompleto !== evento.tiempo) {
+                        const timeRange = document.createElement('div');
+                        timeRange.classList.add('event-time-range');
+                        timeRange.textContent = evento.tiempoCompleto.split(' - ')[1] || '';
+                        eventTime.appendChild(mainTime);
+                        eventTime.appendChild(timeRange);
+                    } else {
+                        eventTime.appendChild(mainTime);
+                    }
+                    
+                    // Parte del contenido
+                    const eventContent = document.createElement('div');
+                    eventContent.classList.add('event-content');
+                    
+                    const eventTitle = document.createElement('div');
+                    eventTitle.classList.add('event-title');
+                    eventTitle.textContent = evento.titulo;
+                    
+                    const eventCategory = document.createElement('div');
+                    eventCategory.classList.add('event-category');
+                    
+                    const stageBadge = document.createElement('span');
+                    stageBadge.classList.add('stage-badge');
+                    stageBadge.textContent = evento.escenario;
+                    
+                    eventCategory.appendChild(stageBadge);
+                    
+                    if (evento.megaSet) {
+                        const megaSetBadge = document.createElement('span');
+                        megaSetBadge.classList.add('mega-set-badge');
+                        megaSetBadge.textContent = 'MEGA SET';
+                        eventCategory.appendChild(megaSetBadge);
+                    }
+                    
+                    eventContent.appendChild(eventTitle);
+                    eventContent.appendChild(eventCategory);
+                    
+                    eventCard.appendChild(eventTime);
+                    eventCard.appendChild(eventContent);
+                    
+                    eventList.appendChild(eventCard);
+                });
+            });
+            
+            dayContent.appendChild(eventList);
+            
+            if (eventosPorTiempo.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.classList.add('empty-message');
+                emptyMessage.textContent = 'No hay eventos programados para este día.';
+                dayContent.appendChild(emptyMessage);
+            }
+            
+            return dayContent;
+        }
+        
+        // Generar pestañas
+        function generarPestanas() {
+            const tabsContainer = document.getElementById('tabs');
+            
+            tomorrowlandData.dias.forEach((dia, index) => {
+                const tab = document.createElement('div');
+                tab.classList.add('tab');
+                if (index === 0) {
+                    tab.classList.add('active');
+                }
+                tab.dataset.day = dia.id;
+                tab.textContent = dia.nombre;
+                
+                tabsContainer.appendChild(tab);
+            });
+        }
+        
+        // Generar contenido inicial
+        function inicializarContenido() {
+            const contentContainer = document.getElementById('content-container');
+            
+            tomorrowlandData.dias.forEach((dia, index) => {
+                const dayContent = generarContenidoDia(dia);
+                if (index === 0) {
+                    dayContent.classList.remove('hidden');
+                }
+                contentContainer.appendChild(dayContent);
+            });
+        }
+        
+        // Función para manejar cambios de pestaña
+        function manejarCambioPestana() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.day-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.add('hidden'));
+                    
+                    this.classList.add('active');
+                    
+                    const dayId = this.getAttribute('data-day');
+                    document.getElementById(`${dayId}-content`).classList.remove('hidden');
+                });
+            });
+        }
+        
+        // Crear elemento para un evento destacado
+        function crearElementoEventoDestacado(evento, tipo, className) {
+            const eventDiv = document.createElement('div');
+            eventDiv.classList.add('event-highlight', className);
+            
+            const headerDiv = document.createElement('div');
+            headerDiv.classList.add('highlight-header');
+            
+            const titleSpan = document.createElement('span');
+            titleSpan.classList.add('highlight-title');
+            titleSpan.textContent = tipo;
+            
+            headerDiv.appendChild(titleSpan);
+            eventDiv.appendChild(headerDiv);
+            
+            const eventCard = document.createElement('div');
+            eventCard.classList.add('event-card', `event-${evento.categoria}`);
+            eventCard.style.boxShadow = 'none';
+            eventCard.style.margin = '0';
+            eventCard.style.borderRadius = '0';
+            
+            if (evento.colaboracion) {
+                eventCard.classList.add('collaboration-card');
+            }
+            
+            // Parte de la hora
+            const eventTime = document.createElement('div');
+            eventTime.classList.add('event-time');
+            
+            const mainTime = document.createElement('div');
+            mainTime.textContent = evento.tiempo;
+            
+            if (evento.tiempoCompleto && evento.tiempoCompleto !== evento.tiempo) {
+                const timeRange = document.createElement('div');
+                timeRange.classList.add('event-time-range');
+                timeRange.textContent = evento.tiempoCompleto.split(' - ')[1] || '';
+                eventTime.appendChild(mainTime);
+                eventTime.appendChild(timeRange);
+            } else {
+                eventTime.appendChild(mainTime);
+            }
+            
+            // Parte del contenido
+            const eventContent = document.createElement('div');
+            eventContent.classList.add('event-content');
+            
+            const eventTitle = document.createElement('div');
+            eventTitle.classList.add('event-title');
+            eventTitle.textContent = evento.titulo;
+            
+            const eventCategory = document.createElement('div');
+            eventCategory.classList.add('event-category');
+            
+            const stageBadge = document.createElement('span');
+            stageBadge.classList.add('stage-badge');
+            stageBadge.textContent = evento.escenario;
+            
+            eventCategory.appendChild(stageBadge);
+            
+            if (evento.megaSet) {
+                const megaSetBadge = document.createElement('span');
+                megaSetBadge.classList.add('mega-set-badge');
+                megaSetBadge.textContent = 'MEGA SET';
+                eventCategory.appendChild(megaSetBadge);
+            }
+            
+            eventContent.appendChild(eventTitle);
+            eventContent.appendChild(eventCategory);
+            
+            eventCard.appendChild(eventTime);
+            eventCard.appendChild(eventContent);
+            
+            eventDiv.appendChild(eventCard);
+            
+            return eventDiv;
+        }
+        
+        // Mostrar mensaje cuando no hay eventos
+        function mostrarSinEventos() {
+            const container = document.getElementById('event-highlight-container');
+            container.innerHTML = '';
+            
+            const noEventsDiv = document.createElement('div');
+            noEventsDiv.classList.add('event-highlight');
+            noEventsDiv.innerHTML = '<div class="no-events">🎵 Próximamente: Tomorrowland 2025 (18-20 Julio)</div>';
+            container.appendChild(noEventsDiv);
+        }
+        
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            generarPestanas();
+            inicializarContenido();
+            manejarCambioPestana();
+            
+            // Mostrar mensaje hasta que llegue el festival
+            mostrarSinEventos();
+        });
+    </script>
+</body>
+</html>
